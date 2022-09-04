@@ -31,7 +31,7 @@ export default {
         })
     },
     //根据课程id查询
-    getCourseInfo(courseInfo) {
+    getPublishCourseInfo(id) {
         return request({
             url: '/edu/course/getPublishCourseInfo' + id,
             method: 'get',
@@ -45,7 +45,7 @@ export default {
         })
     },
     //课程最终发布
-    publihCourse(id) {
+    publishCourse(id) {
         return request({
             url: '/edu/course/publishCourse/'+id,
             method: 'post'

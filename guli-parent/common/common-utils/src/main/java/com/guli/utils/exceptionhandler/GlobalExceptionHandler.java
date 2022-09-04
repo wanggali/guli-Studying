@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody //为了能够返回数据
     public Result error(Exception e){
-        log.error("Default Exception: ",e.getMessage());
+        log.error("Default Exception: "+e.getMessage());
         return Result.error().message("方法执行ArithmeticException异常！");
     }
 

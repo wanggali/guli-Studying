@@ -18,7 +18,7 @@
           :on-error="fileUploadError"
           :disabled="importBtnDisabled"
           :limit="1"
-          :action="BASE_API+'/eduservice/subject/addSubject'"
+          :action="BASE_API+'/edu/subject/addSubject'"
           name="file"
           accept="application/vnd.ms-excel">
           <el-button slot="trigger" size="small" type="primary">选取文件</el-button>

@@ -63,7 +63,7 @@ export default {
     },
 
     publish() {
-      course.publihCourse(this.courseId).then(response => {
+      course.publishCourse(this.courseId).then(response => {
         //提示
         this.$message({
           type: "success",

@@ -4,10 +4,10 @@ export default {
     //讲师列表（分页条件查询）
     getSubjectList(){
         return request({
-            url: `/eduservice/subject/getAllSubject`,
+            url: `/edu/subject/getAllSubject`,
             method: 'get',
         })
     }
 
-    
+
 }
