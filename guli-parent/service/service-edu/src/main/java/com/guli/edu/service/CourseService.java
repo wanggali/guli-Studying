@@ -14,5 +14,9 @@ import com.guli.edu.pojo.vo.CourseInfoVo;
  */
 public interface CourseService extends IService<Course> {
 
-    void saveCourseInfo(CourseInfoVo courseInfoVo);
+    String saveCourseInfo(CourseInfoVo courseInfoVo);
+
+    CourseInfoVo getCourseInfo(String courseId);
+
+    void updateCourseInfo(CourseInfoVo courseInfoVo);
 }

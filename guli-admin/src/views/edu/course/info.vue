@@ -74,7 +74,7 @@
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
-          :action="BASE_API+'/eduoss/fileoss'"
+          :action="BASE_API+'/oss/upload'"
           class="avatar-uploader"
         >
           <img :src="courseInfo.cover" />
@@ -149,9 +149,9 @@ export default {
           //2 获取所有一级分类
           this.subjectOneList = response.data.list;
           //3 把所有的一级分类数组进行遍历，
-          for (var i = 0; i < this.subjectOneList.length; i++) {
+          for (let i = 0; i < this.subjectOneList.length; i++) {
             //获取每个一级分类
-            var oneSubject = this.subjectOneList[i];
+            let oneSubject = this.subjectOneList[i];
             //比较当前courseInfo里面一级分类id和所有的一级分类id
             if (this.courseInfo.subjectParentId == oneSubject.id) {
               //获取一级分类所有的二级分类
@@ -184,9 +184,9 @@ export default {
     subjectLevelOneChanged(value) {
       //value就是一级分类id值
       //遍历所有的分类，包含一级和二级
-      for (var i = 0; i < this.subjectOneList.length; i++) {
+      for (let i = 0; i < this.subjectOneList.length; i++) {
         //每个一级分类
-        var oneSubject = this.subjectOneList[i];
+        const oneSubject = this.subjectOneList[i]
         //判断：所有一级分类id 和 点击一级分类id是否一样
         if (value === oneSubject.id) {
           //从一级分类获取里面所有的二级分类

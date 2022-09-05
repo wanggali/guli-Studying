@@ -2,6 +2,9 @@ package com.guli.edu.service;
 
 import com.guli.edu.pojo.Chapter;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.guli.edu.pojo.chapter.ChapterVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ChapterService extends IService<Chapter> {
 
+    List<ChapterVo> getChapterVideo(String courseId);
+
+    boolean deleteChapter(String chapterId);
 }

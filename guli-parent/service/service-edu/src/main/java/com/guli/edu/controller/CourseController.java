@@ -30,10 +30,28 @@ public class CourseController {
     /**
      * 添加课程基本信息
      */
-    @PostMapping("addCourseInfo")
+    @PostMapping("/addCourseInfo")
     @ApiOperation(value = "添加课程")
     public Result addCourseInfo(@RequestBody CourseInfoVo courseInfoVo){
-        courseService.saveCourseInfo(courseInfoVo);
+        String id =courseService.saveCourseInfo(courseInfoVo);
+        return Result.ok().data("courseId",id);
+    }
+    /**
+     * 根据课程id查询课程基本信息
+     */
+    @GetMapping("/getCourseInfo/{courseId}")
+    @ApiOperation(value = "查询课程基本信息")
+    public Result getCourseInfo(@PathVariable String courseId){
+        CourseInfoVo courseInfoVo=courseService.getCourseInfo(courseId);
+        return Result.ok().data("courseInfoVo",courseInfoVo);
+    }
+    /**
+     * 修改课程信息
+     */
+    @PostMapping("/updateCourseInfo")
+    @ApiOperation(value = "修改课程信息")
+    public Result updateCourseInfo(@RequestBody CourseInfoVo courseInfoVo){
+        courseService.updateCourseInfo(courseInfoVo);
         return Result.ok();
     }
 }

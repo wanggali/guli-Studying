@@ -32,7 +32,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private CourseDescriptionService courseDescriptionService;
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveCourseInfo(CourseInfoVo courseInfoVo) {
+    public String saveCourseInfo(CourseInfoVo courseInfoVo) {
         //向课程表添加信息
         Course course = new Course();
         BeanUtils.copyProperties(courseInfoVo,course);
@@ -48,5 +48,34 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         //手动设置简介表id
         courseDescription.setId(cid);
         courseDescriptionService.save(courseDescription);
+        return cid;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public CourseInfoVo getCourseInfo(String courseId) {
+        Course course = courseMapper.selectById(courseId);
+        CourseDescription courseDescription = courseDescriptionService.getById(courseId);
+        CourseInfoVo courseInfoVo = new CourseInfoVo();
+        BeanUtils.copyProperties(course,courseInfoVo);
+        BeanUtils.copyProperties(courseDescription,courseInfoVo);
+        return courseInfoVo;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateCourseInfo(CourseInfoVo courseInfoVo) {
+        Course course = new Course();
+        CourseDescription courseDescription = new CourseDescription();
+        BeanUtils.copyProperties(courseInfoVo,course);
+        BeanUtils.copyProperties(courseInfoVo,courseDescription);
+        int i = courseMapper.updateById(course);
+        if (i<=0){
+            throw new GuliException(20001,"修改课程失败");
+        }
+        boolean b = courseDescriptionService.updateById(courseDescription);
+        if (!b){
+            throw new GuliException(20001,"修改课程简介失败");
+        }
     }
 }
