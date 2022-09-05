@@ -2,6 +2,7 @@ package com.guli.edu.controller;
 
 
 import com.guli.edu.pojo.vo.CourseInfoVo;
+import com.guli.edu.pojo.vo.CoursePublishVo;
 import com.guli.edu.service.CourseService;
 import com.guli.utils.Result;
 import io.swagger.annotations.Api;
@@ -53,6 +54,15 @@ public class CourseController {
     public Result updateCourseInfo(@RequestBody CourseInfoVo courseInfoVo){
         courseService.updateCourseInfo(courseInfoVo);
         return Result.ok();
+    }
+    /**
+     * 根据课程id查询课程确认信息
+     */
+    @GetMapping("/getPublishCourseInfo/{id}")
+    @ApiOperation(value = "课程id查询课程确认信息")
+    public Result getPublishCourseInfo(@PathVariable String id){
+        CoursePublishVo coursePublishVo=courseService.getPublishCourseInfo(id);
+        return Result.ok().data("publishCourse",coursePublishVo);
     }
 }
 

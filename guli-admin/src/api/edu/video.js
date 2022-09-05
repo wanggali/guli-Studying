@@ -17,4 +17,11 @@ export default {
             method: 'delete'
           })
     },
+    //更新小节
+    updateVideo(id) {
+        return request({
+      url: `/edu/video/updateVideo`,
+      method: 'post'
+    })
+  },
 }

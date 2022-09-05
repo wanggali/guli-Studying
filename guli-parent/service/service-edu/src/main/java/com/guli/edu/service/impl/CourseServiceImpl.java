@@ -5,6 +5,7 @@ import com.guli.edu.pojo.Course;
 import com.guli.edu.mapper.CourseMapper;
 import com.guli.edu.pojo.CourseDescription;
 import com.guli.edu.pojo.vo.CourseInfoVo;
+import com.guli.edu.pojo.vo.CoursePublishVo;
 import com.guli.edu.service.CourseDescriptionService;
 import com.guli.edu.service.CourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -77,5 +78,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if (!b){
             throw new GuliException(20001,"修改课程简介失败");
         }
+    }
+
+    @Override
+    public CoursePublishVo getPublishCourseInfo(String id) {
+        return courseMapper.getPublishCourseInfo(id);
     }
 }

@@ -3,6 +3,7 @@ package com.guli.edu.service;
 import com.guli.edu.pojo.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.guli.edu.pojo.vo.CourseInfoVo;
+import com.guli.edu.pojo.vo.CoursePublishVo;
 
 /**
  * <p>
@@ -19,4 +20,6 @@ public interface CourseService extends IService<Course> {
     CourseInfoVo getCourseInfo(String courseId);
 
     void updateCourseInfo(CourseInfoVo courseInfoVo);
+
+    CoursePublishVo getPublishCourseInfo(String id);
 }
