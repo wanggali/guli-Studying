@@ -71,7 +71,6 @@ export default {
             method: 'post',
             //courseQuery条件对象，后端用requestbody获取数据
             //data表示把对象转换成json数据传递到接口里面
-
             data: courseQuery
         })
     },

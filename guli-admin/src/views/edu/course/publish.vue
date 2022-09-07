@@ -61,7 +61,6 @@ export default {
       console.log("previous");
       this.$router.push({ path: "/course/chapter/1" });
     },
-
     publish() {
       course.publishCourse(this.courseId).then(response => {
         //提示

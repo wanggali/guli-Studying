@@ -1,15 +1,25 @@
 package com.guli.edu.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.api.R;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.guli.edu.pojo.Course;
 import com.guli.edu.pojo.vo.CourseInfoVo;
 import com.guli.edu.pojo.vo.CoursePublishVo;
+import com.guli.edu.pojo.vo.CourseQuery;
 import com.guli.edu.service.CourseService;
 import com.guli.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.net.NetworkInterface;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -63,6 +73,68 @@ public class CourseController {
     public Result getPublishCourseInfo(@PathVariable String id){
         CoursePublishVo coursePublishVo=courseService.getPublishCourseInfo(id);
         return Result.ok().data("publishCourse",coursePublishVo);
+    }
+    /**
+     * 课程最终发布
+     */
+    @PostMapping("/publishCourse/{id}")
+    @ApiOperation(value = "课程最终发布")
+    public Result publishCourse(@PathVariable String id){
+        Course course = new Course();
+        course.setId(id).setStatus("Normal");
+        courseService.updateById(course);
+        return Result.ok();
+    }
+    /**
+     * 课程列表
+     */
+    @GetMapping
+    @ApiOperation(value = "课程列表")
+    public Result getCourseList(){
+        List<Course> list = courseService.list(null);
+        return Result.ok().data("list",list);
+    }
+
+    /**
+     * 根据id删除课程
+     */
+    @DeleteMapping("/{courseId}")
+    public Result removeCourse(@PathVariable String courseId) {
+        courseService.removeCourse(courseId);
+        return Result.ok();
+    }
+    //4.条件查询分页方法
+    @ApiOperation(value = "条件查询分页方法")
+    @PostMapping("/pageCourseCondition/{current}/{limit}")
+    public Result pageCourseCondition(@PathVariable Long current,
+                                 @PathVariable Long limit,
+                                 @RequestBody(required = false) CourseQuery courseQuery) {
+        //创建page
+        Page<Course> pageCondition = new Page<>(current, limit);
+
+        //QueryWrapper,构建
+        QueryWrapper<Course> wrapper = new QueryWrapper<>();
+        //多条件组合查询，动态sql
+        String status = courseQuery.getStatus();
+        String title = courseQuery.getTitle();
+        if (!StringUtils.isEmpty(title)) {
+            wrapper.like("title", title);
+        }
+        if (!StringUtils.isEmpty(status)) {
+            wrapper.eq("status", status);
+        }
+
+        wrapper.orderByDesc("gmt_create");
+
+        //调用方法，实现分页查询
+        IPage<Course> page = courseService.page(pageCondition, wrapper);
+
+        long total = page.getTotal();//获取总记录数
+        List<Course> records = page.getRecords();//获取分页后的list集合
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", records);
+        return Result.ok().data(map);
     }
 }
 

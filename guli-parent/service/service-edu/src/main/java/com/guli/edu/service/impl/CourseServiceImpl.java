@@ -6,9 +6,11 @@ import com.guli.edu.mapper.CourseMapper;
 import com.guli.edu.pojo.CourseDescription;
 import com.guli.edu.pojo.vo.CourseInfoVo;
 import com.guli.edu.pojo.vo.CoursePublishVo;
+import com.guli.edu.service.ChapterService;
 import com.guli.edu.service.CourseDescriptionService;
 import com.guli.edu.service.CourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.guli.edu.service.VideoService;
 import com.guli.utils.exceptionhandler.GuliException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private CourseMapper courseMapper;
     @Resource
     private CourseDescriptionService courseDescriptionService;
+    @Resource
+    private VideoService videoService;
+    @Resource
+    private ChapterService chapterService;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public String saveCourseInfo(CourseInfoVo courseInfoVo) {
@@ -83,5 +90,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public CoursePublishVo getPublishCourseInfo(String id) {
         return courseMapper.getPublishCourseInfo(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeCourse(String courseId) {
+        //删除小节
+        videoService.removeVideoByCourseId(courseId);
+        //删除章节
+        chapterService.removeChapterByCourseId(courseId);
+        //删除描述
+        courseDescriptionService.removeById(courseId);
+        //删除课程本身
+        courseMapper.deleteById(courseId);
     }
 }
