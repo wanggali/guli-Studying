@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(GuliException.class)
     @ResponseBody
     public Result error(GuliException e){
-        log.error("GuliException Exception: ",e.getMessage());
+        log.error("GuliException Exception: "+e.getMessage());
         return Result.error().code(e.getCode()).message(e.getMsg());
     }
 

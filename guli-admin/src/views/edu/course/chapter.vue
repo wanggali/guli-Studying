@@ -80,8 +80,8 @@
             :before-remove="beforeVodRemove"
             :on-exceed="handleUploadExceed"
             :file-list="fileList"
-            :url="BASE_API+'/eduvod/video/uploadAlyiVideo'"
-            :action="BASE_API+'/eduvod/video/uploadAlyiVideo'"
+            :url="BASE_API+'/vod/video/uploadAlyVideo'"
+            :action="BASE_API+'/vod/video/uploadAlyVideo'"
             :limit="1"
             class="upload-demo"
           >
@@ -125,7 +125,8 @@ export default {
         title: "",
         sort: 0,
         free: 0,
-        videoSourceId: ""
+        videoSourceId: "",
+        videoOriginalName:""
       },
       fileList: [], //上传文件列表
       BASE_API: process.env.BASE_API, // 接口API地址
