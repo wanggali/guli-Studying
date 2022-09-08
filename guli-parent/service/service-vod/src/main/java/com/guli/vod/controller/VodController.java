@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Auther: gali
@@ -39,6 +40,15 @@ public class VodController {
     @ApiOperation(value = "删除视频")
     public Result removeAlyVideo(@PathVariable String id){
         vodService.removeVideo(id);
+        return Result.ok();
+    }
+    /**
+     * 删除多个视频
+     */
+    @DeleteMapping("/removeBatch")
+    @ApiOperation(value = "删除多个视频")
+    public Result removeBatch(@RequestParam("videoIdList") List<String> videoIdList){
+        vodService.removeBatch(videoIdList);
         return Result.ok();
     }
 }
