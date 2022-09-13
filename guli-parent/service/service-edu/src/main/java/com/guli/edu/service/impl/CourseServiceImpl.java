@@ -1,5 +1,6 @@
 package com.guli.edu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guli.edu.mapper.CourseDescriptionMapper;
 import com.guli.edu.pojo.Course;
 import com.guli.edu.mapper.CourseMapper;
@@ -13,10 +14,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.guli.edu.service.VideoService;
 import com.guli.utils.exceptionhandler.GuliException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -103,5 +106,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         courseDescriptionService.removeById(courseId);
         //删除课程本身
         courseMapper.deleteById(courseId);
+    }
+
+    @Override
+    @Cacheable(value = "indexHotCourse",key = "'findIndexHotCourse'")
+    public List<Course> findIndexHotCourse() {
+        QueryWrapper<Course> wrapper= new QueryWrapper<>();
+        wrapper.orderByDesc("id").last("limit 8");
+        List<Course> listCourse = courseMapper.selectList(wrapper);
+        return listCourse;
     }
 }

@@ -2,7 +2,7 @@ import request from '@/utils/request'
 export default {
   getPlayAuth(vid) {
     return request({
-      url: `/eduvod/video/getPlayAuth/${vid}`,
+      url: `/vod/video/getPlayAuth/${vid}`,
       method: 'get'
     })
   }

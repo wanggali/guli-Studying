@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.guli.edu.pojo.vo.CourseInfoVo;
 import com.guli.edu.pojo.vo.CoursePublishVo;
 
+import java.util.List;
+
 /**
  * <p>
  * 课程 服务类
@@ -24,4 +26,6 @@ public interface CourseService extends IService<Course> {
     CoursePublishVo getPublishCourseInfo(String id);
 
     void removeCourse(String courseId);
+
+    List<Course> findIndexHotCourse();
 }

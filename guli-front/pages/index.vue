@@ -1,5 +1,5 @@
 <template>
-  
+
   <div>
     <!-- 幻灯片 开始 -->
   <div v-swiper:mySwiper="swiperOption">
@@ -16,7 +16,7 @@
       <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
   </div>
   <!-- 幻灯片 结束 -->
-    
+
      <div id="aCoursesList">
       <!-- 网校课程 开始 -->
       <div>
@@ -56,7 +56,7 @@
                     </section>
                   </div>
                 </li>
-               
+
               </ul>
               <div class="clear"></div>
             </article>
@@ -98,7 +98,7 @@
                     </div>
                   </section>
                 </li>
-                
+
               </ul>
               <div class="clear"></div>
             </article>
@@ -119,7 +119,6 @@ import index from '@/api/index'
 export default {
   data () {
     return {
-
       swiperOption: {
         //配置分页
         pagination: {
@@ -138,7 +137,7 @@ export default {
     }
   },
   created() {
- //调用查询banner的方法
+    //调用查询banner的方法
     this.getBannerList()
     //调用查询热门课程和名师的方法
     this.getHotCourseTeacher()

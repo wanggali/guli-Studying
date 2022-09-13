@@ -6,6 +6,7 @@ import com.guli.edu.pojo.Teacher;
 import com.guli.edu.service.CourseService;
 import com.guli.edu.service.TeacherService;
 import com.guli.utils.Result;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +34,8 @@ public class IndexFrontController {
      */
     @GetMapping("/index")
     public Result index(){
-        QueryWrapper<Course> wrapper= new QueryWrapper<>();
-        wrapper.orderByDesc("id").last("limit 8");
-        List<Course> listCourse = courseService.list(wrapper);
-
-        QueryWrapper<Teacher> wrapper1= new QueryWrapper<>();
-        wrapper1.orderByDesc("id").last("limit 4");
-        List<Teacher> listTeacher = teacherService.list(wrapper1);
+        List<Course> listCourse = courseService.findIndexHotCourse();
+        List<Teacher> listTeacher = teacherService.findIndexHotTeacher();
         return Result.ok().data("eduList",listCourse).data("teacherList",listTeacher);
     }
 }

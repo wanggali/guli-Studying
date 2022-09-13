@@ -1,13 +1,10 @@
 package com.guli.cms.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.guli.cms.pojo.CrmBanner;
 import com.guli.cms.service.CrmBannerService;
 import com.guli.utils.Result;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
