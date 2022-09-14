@@ -46,7 +46,7 @@
         <q class="red-point" style="display: none">&nbsp;</q>
     </li>
     <li v-if="loginInfo.id" id="is-login-two" class="h-r-user">
-        <a href="/ucenter" title>
+        <a href="/" title>
             <img
                  :src="loginInfo.avatar"
                  width="30"
@@ -78,7 +78,7 @@
       </section>
     </header>
     <!-- /公共头引入 -->
-      
+
     <nuxt/>
 
     <!-- 公共底引入 -->
@@ -173,15 +173,12 @@ export default {
   methods:{
     //微信登录显示的方法
     wxLogin() {
-      //console.log('************'+this.token)
       //把token值放到cookie里面
       cookie.set('guli_token',this.token,{domain: 'localhost'})
       cookie.set('guli_ucenter','',{domain: 'localhost'})
-     //console.log('====='+cookie.get('guli_token'))
       //调用接口，根据token值获取用户信息
       loginApi.getLoginUserInfo()
         .then(response => {
-           //console.log('################'+response.data.data.userInfo)
            this.loginInfo = response.data.data.userInfo
            cookie.set('guli_ucenter',this.loginInfo,{domain: 'localhost'})
         })
@@ -189,7 +186,7 @@ export default {
     //创建方法，从cookie获取用户信息
     showInfo() {
       //从cookie获取用户信息
-      var userStr = cookie.get('guli_ucenter')
+      const userStr = cookie.get('guli_ucenter');
       // 把字符串转换json对象(js对象)
       if(userStr) {
         this.loginInfo = JSON.parse(userStr)

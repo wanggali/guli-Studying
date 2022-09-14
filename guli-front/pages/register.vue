@@ -29,7 +29,7 @@
             <i class="iconfont icon-phone"/>
           </div>
           <div class="btn" style="position:absolute;right: 0;top: 6px;width: 40%;">
-            <a href="javascript:" type="button" @click="getCodeFun()" :value="codeTest" style="border: none;background-color: none">{{codeTest}}</a>
+            <a href="javascript:" type="button" @click="getCodeFun()" :value="codeTest" style="border: none;background-color: initial">{{codeTest}}</a>
           </div>
         </el-form-item>
 
@@ -85,7 +85,7 @@
       }
     },
     methods: {
-     
+
        //注册提交的方法
        submitRegister() {
          registerApi.registerMember(this.params)
@@ -97,7 +97,7 @@
               })
             //跳转登录页面
             this.$router.push({path:'/login'})
-              
+
           })
        },
        //倒计时
@@ -126,13 +126,13 @@
        },
 
       checkPhone (rule, value, callback) {
-        //debugger
-        if (!(/^1[34578]\d{9}$/.test(value))) {
+        //debugger 全新手机号正则表达式
+        if (!(/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/.test(value))) {
           return callback(new Error('手机号码格式不正确'))
         }
         return callback()
       },
-      
+
     }
   }
 </script>

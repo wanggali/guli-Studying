@@ -32,7 +32,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     @Resource
     private RedisTemplate<String,String> redisTemplate;
     //默认头像地址
-    public static final String avatar="http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoj0hHXhgJNOTSOFsS4uZs8x1ConecaVOB8eIl115xmJZcT4oCicvia7wMEufibKtTLqiaJeanU2Lpg3w/132";
+    public static final String avatar="https://galidata-1309989133.cos.ap-chengdu.myqcloud.com/gali-music/img/songListPic/109951163271025942.jpg";
     @Override
     public String login(Member member) {
         String mobile = member.getMobile();
@@ -89,5 +89,13 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         member.setIsDisabled(false);//不禁用
         member.setAvatar(avatar);
         memberMapper.insert(member);
+    }
+
+    @Override
+    public Member getOpenIdMember(String openid) {
+        QueryWrapper<Member> wrapper=new QueryWrapper<>();
+        wrapper.eq("openid",openid);
+        Member member = memberMapper.selectOne(wrapper);
+        return member;
     }
 }

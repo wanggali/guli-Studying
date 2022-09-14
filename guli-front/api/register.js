@@ -4,7 +4,7 @@ export default {
     //根据手机号发验证码
   sendCode(phone) {
     return request({
-      url: `/msm/msm/send/${phone}`,
+      url: `/msm/send/${phone}`,
       method: 'get'
     })
   },

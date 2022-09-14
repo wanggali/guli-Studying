@@ -31,7 +31,7 @@
       <div class="more-sign">
         <h6>社交帐号登录</h6>
         <ul>
-          <li><a id="weixin" class="weixin" target="_blank" href="http://localhost:8006//api/center/wx/login"><i class="iconfont icon-weixin"/></a></li>
+          <li><a id="weixin" class="weixin" target="_blank" href="http://localhost:8160/api/ucenter/wx/login"><i class="iconfont icon-weixin"/></a></li>
           <li><a id="qq" class="qq" target="_blank" href="#"><i class="iconfont icon-qq"/></a></li>
         </ul>
       </div>
@@ -86,7 +86,7 @@
       },
       checkPhone (rule, value, callback) {
         //debugger
-        if (!(/^1[34578]\d{9}$/.test(value))) {
+        if (!(/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/.test(value))) {
           return callback(new Error('手机号码格式不正确'))
         }
         return callback()
