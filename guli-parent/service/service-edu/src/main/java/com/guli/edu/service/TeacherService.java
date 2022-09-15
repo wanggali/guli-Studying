@@ -1,9 +1,11 @@
 package com.guli.edu.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.guli.edu.pojo.Teacher;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,4 +18,6 @@ import java.util.List;
 public interface TeacherService extends IService<Teacher> {
 
     List<Teacher> findIndexHotTeacher();
+
+    Map<String, Object> getTeacherFrontList(Page<Teacher> pageInfo);
 }

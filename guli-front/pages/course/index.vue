@@ -16,12 +16,12 @@
             <dd class="c-s-dl-li">
               <ul class="clearfix">
                 <li>
-                  <a title="全部" href="#">全部</a>
+                  <a title="全部" @click="showIndex()" style="cursor: pointer" :class="{active:indexActive==1}">全部</a>
                 </li>
                 <li v-for="(item,index) in subjectNestedList" :key="index" :class="{active:oneIndex==index}">
                   <a :title="item.title" href="#" @click="searchOne(item.id,index)">{{item.title}}</a>
                 </li>
-               
+
               </ul>
             </dd>
           </dl>
@@ -34,7 +34,7 @@
                 <li v-for="(item,index) in subSubjectList" :key="index" :class="{active:twoIndex==index}">
                   <a :title="item.title" href="#" @click="searchTwo(item.id,index)">{{item.title}}</a>
                 </li>
-               
+
               </ul>
             </dd>
           </dl>
@@ -99,7 +99,7 @@
                   </section>
                 </div>
               </li>
-              
+
             </ul>
             <div class="clear"></div>
           </article>
@@ -160,7 +160,9 @@ export default {
       twoIndex:-1,
       buyCountSort:"",
       gmtCreateSort:"",
-      priceSort:""
+      priceSort:"",
+
+      indexActive:-1
     }
   },
   created() {
@@ -196,7 +198,7 @@ export default {
     searchOne(subjectParentId,index) {
       //把传递index值赋值给oneIndex,为了active样式生效
       this.oneIndex = index
-
+      this.indexActive=-1
       this.twoIndex = -1
       this.searchObj.subjectId = ""
       this.subSubjectList = []
@@ -210,7 +212,7 @@ export default {
       //如果id相同，从一级分类里面获取对应的二级分类
       for(let i=0;i<this.subjectNestedList.length;i++) {
         //获取每个一级分类
-        var oneSubject = this.subjectNestedList[i]
+        const oneSubject = this.subjectNestedList[i];
         //比较id是否相同
         if(subjectParentId == oneSubject.id) {
           //从一级分类里面获取对应的二级分类
@@ -221,6 +223,7 @@ export default {
 
     //5 点击某个二级分类实现查询
     searchTwo(subjectId,index) {
+      this.indexActive=-1
       //把index赋值,为了样式生效
       this.twoIndex = index
       //把二级分类点击id值，赋值给searchObj
@@ -275,8 +278,19 @@ export default {
 
       //调用方法查询
       this.gotoPage(1)
-    }
+    },
 
+    showIndex(){
+      this.searchObj={}
+      this.indexActive=1
+      this.oneIndex=-1
+      this.twoIndex=-1
+      courseApi.getCourseList(1,8,{}).then(response => {
+        this.data = response.data.data
+      })
+      //调用方法查询
+      this.gotoPage(1)
+    }
   }
 };
 </script>

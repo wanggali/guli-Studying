@@ -1,7 +1,15 @@
 package com.guli.vod.controller;
 
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.vod.model.v20170321.GetVideoInfoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoInfoResponse;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.guli.utils.Result;
+import com.guli.utils.exceptionhandler.GuliException;
+import com.guli.vod.client.AliyunClient;
 import com.guli.vod.service.VodService;
+import com.guli.vod.utils.ConstantVodUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -50,5 +58,13 @@ public class VodController {
     public Result removeBatch(@RequestParam("videoIdList") List<String> videoIdList){
         vodService.removeBatch(videoIdList);
         return Result.ok();
+    }
+    /**
+     * 根据视频id获取凭证
+     */
+    @GetMapping("/getPlayAuth/{id}")
+    public Result getPlayAuth(@PathVariable String id){
+        String playAuth = vodService.getPlayAuth(id);
+        return Result.ok().data("playAuth",playAuth);
     }
 }

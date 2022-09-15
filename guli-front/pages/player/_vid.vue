@@ -17,7 +17,8 @@ export default {
     asyncData({ params, error }) {
        return vod.getPlayAuth(params.vid)
         .then(response => {
-            return { 
+          console.log(response)
+            return {
                 playAuth: response.data.data.playAuth,
                 vid: params.vid
             }
