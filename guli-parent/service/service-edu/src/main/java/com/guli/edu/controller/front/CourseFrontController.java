@@ -8,6 +8,8 @@ import com.guli.edu.pojo.vo.front.CourseWebVo;
 import com.guli.edu.service.ChapterService;
 import com.guli.edu.service.CourseService;
 import com.guli.utils.Result;
+import com.guli.utils.user.CourseWebVoOrder;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -49,5 +51,15 @@ public class CourseFrontController {
         //章节，小节
         List<ChapterVo> chapterVideo = chapterService.getChapterVideo(courseId);
         return Result.ok().data("courseWebVo",courseWebVo).data("chapterVideoList",chapterVideo);
+    }
+    /**
+     * 根据课程id查询课程信息
+     */
+    @GetMapping("/getCourseInfoOrder/{id}")
+    public CourseWebVoOrder getCourseInfoOrder(@PathVariable String id){
+        CourseWebVo courseWebVo = courseService.getBaseCourseInfo(id);
+        CourseWebVoOrder courseWebVoOrder = new CourseWebVoOrder();
+        BeanUtils.copyProperties(courseWebVo,courseWebVoOrder);
+        return courseWebVoOrder;
     }
 }

@@ -18,6 +18,8 @@
         <module>service-cms</module>
         <module>service-msm</module>
         <module>service-ucenter</module>
+        <module>service-comment</module>
+        <module>service-order</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

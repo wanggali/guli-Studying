@@ -1,22 +1,22 @@
-package com.guli.ucenter;
+package com.guli.order;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @Auther: gali
- * @Date: 2022-09-13 20:37
+ * @Date: 2022-09-16 14:59
  * @Description:
  */
 @SpringBootApplication
-@ComponentScan({"com.guli"})
+@ComponentScan(basePackages = {"com.guli"})
 @EnableDiscoveryClient
-@MapperScan("com.guli.ucenter.mapper")
-public class UcenterApplication {
+@EnableFeignClients
+public class OrderApplication {
     public static void main(String[] args) {
-        SpringApplication.run(UcenterApplication.class,args);
+        SpringApplication.run(OrderApplication.class,args);
     }
 }

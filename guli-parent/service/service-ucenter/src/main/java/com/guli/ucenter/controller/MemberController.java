@@ -6,7 +6,9 @@ import com.guli.ucenter.pojo.vo.RegisterVo;
 import com.guli.ucenter.service.MemberService;
 import com.guli.utils.JwtUtils;
 import com.guli.utils.Result;
+import com.guli.utils.user.UcenterMemberOrder;
 import org.apache.http.HttpRequest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -51,6 +53,16 @@ public class MemberController {
         String memberId = JwtUtils.getMemberIdByJwtToken(request);
         Member member = memberService.getById(memberId);
         return Result.ok().data("userInfo",member);
+    }
+    /**
+     * 根据用户id获取用户信息
+     */
+    @GetMapping("/getUserInfoOrder/{id}")
+    public UcenterMemberOrder getUserInfoOrder(@PathVariable String id){
+        Member member = memberService.getById(id);
+        UcenterMemberOrder ucenterMemberOrder = new UcenterMemberOrder();
+        BeanUtils.copyProperties(member,ucenterMemberOrder);
+        return ucenterMemberOrder;
     }
 }
 
