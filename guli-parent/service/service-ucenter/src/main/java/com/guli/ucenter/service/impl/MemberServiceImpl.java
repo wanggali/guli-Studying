@@ -98,4 +98,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         Member member = memberMapper.selectOne(wrapper);
         return member;
     }
+
+    @Override
+    public Integer countRegister(String day) {
+        Integer count=memberMapper.countRegister(day);
+        return count;
+    }
 }

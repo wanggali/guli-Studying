@@ -1,18 +1,21 @@
 package com.guli.edu.controller.front;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.guli.edu.client.OrderClient;
 import com.guli.edu.pojo.Course;
 import com.guli.edu.pojo.chapter.ChapterVo;
 import com.guli.edu.pojo.vo.front.CourseFrontVo;
 import com.guli.edu.pojo.vo.front.CourseWebVo;
 import com.guli.edu.service.ChapterService;
 import com.guli.edu.service.CourseService;
+import com.guli.utils.JwtUtils;
 import com.guli.utils.Result;
 import com.guli.utils.user.CourseWebVoOrder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +33,9 @@ public class CourseFrontController {
 
     @Resource
     private ChapterService chapterService;
+
+    @Resource
+    private OrderClient  orderClient;
     /**
      * 条件查询带分页 查询课程
      */
@@ -45,12 +51,15 @@ public class CourseFrontController {
      * 课程详情
      */
     @GetMapping("/getFrontCourseInfo/{courseId}")
-    public Result getFrontCourseInfo(@PathVariable String courseId){
+    public Result getFrontCourseInfo(@PathVariable String courseId,
+                                     HttpServletRequest request){
         //课程详情
         CourseWebVo courseWebVo=courseService.getBaseCourseInfo(courseId);
         //章节，小节
         List<ChapterVo> chapterVideo = chapterService.getChapterVideo(courseId);
-        return Result.ok().data("courseWebVo",courseWebVo).data("chapterVideoList",chapterVideo);
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+        boolean isBuy = orderClient.isBuyCourse(courseId, memberId);
+        return Result.ok().data("courseWebVo",courseWebVo).data("chapterVideoList",chapterVideo).data("isBuy",isBuy);
     }
     /**
      * 根据课程id查询课程信息

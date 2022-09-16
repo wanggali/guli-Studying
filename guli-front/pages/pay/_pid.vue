@@ -26,7 +26,7 @@
         </div>
         <div class="clearfix"></div>
         <!-- <p><a href="pay.html" target="_blank">> 其他支付方式</a></p> -->
-        
+
       </div>
     </div>
   </div>
