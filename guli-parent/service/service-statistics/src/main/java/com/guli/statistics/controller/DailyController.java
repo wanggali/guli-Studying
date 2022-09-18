@@ -7,6 +7,7 @@ import com.guli.utils.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,6 +32,17 @@ public class DailyController {
     public Result registerCount(@PathVariable String day){
         dailyService.registerCount(day);
         return Result.ok();
+    }
+    /**
+     * 图标显示
+     * 日期，数量
+     */
+    @GetMapping("/getShowData/{type}/{begin}/{end}")
+    public Result getShowData(@PathVariable String type,
+                              @PathVariable String begin,
+                              @PathVariable String end){
+        Map<String,Object> map=dailyService.getShowData(type,begin,end);
+        return Result.ok().data(map);
     }
 }
 
