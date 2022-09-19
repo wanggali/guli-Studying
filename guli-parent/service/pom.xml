@@ -21,6 +21,7 @@
         <module>service-comment</module>
         <module>service-order</module>
         <module>service-statistics</module>
+        <module>service-acl</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
