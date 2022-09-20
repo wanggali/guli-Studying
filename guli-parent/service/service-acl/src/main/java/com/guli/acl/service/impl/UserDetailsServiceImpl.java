@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -26,11 +27,12 @@ import java.util.List;
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
-    @Autowired
+    @Resource
     private PermissionService permissionService;
+
 
     /***
      * 根据账号获取用户信息
@@ -47,13 +49,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             //throw new UsernameNotFoundException("用户名不存在！");
         }
         // 返回UserDetails实现类
-        User curUser = new User();
+        com.guli.security.entity.User curUser = new com.guli.security.entity.User();
         BeanUtils.copyProperties(user,curUser);
 
         List<String> authorities = permissionService.selectPermissionValueByUserId(user.getId());
-//        SecurityUser securityUser = new SecurityUser(curUser);
-//        securityUser.setPermissionValueList(authorities);
-        return null;
+        SecurityUser securityUser = new SecurityUser(curUser);
+        securityUser.setPermissionValueList(authorities);
+        return securityUser;
     }
-
 }
