@@ -23,7 +23,7 @@ public class MsmServiceImpl implements MsmService {
     @Override
     public boolean sendMsm(Map<String, Object> param, String phone) {
         DefaultProfile profile =
-                DefaultProfile.getProfile("default", "LTAI5t9Ct4kWsp9nuwrNbofx", "Un3jdGyQ0p0GfsXkEaQapac6J8A4b0");
+                DefaultProfile.getProfile("", "", "");
         IAcsClient client = new DefaultAcsClient(profile);
         //设置相关参数
         CommonRequest request = new CommonRequest();
