@@ -23,7 +23,7 @@ public class MsmServiceImpl implements MsmService {
     @Override
     public boolean sendMsm(Map<String, Object> param, String phone) {
         DefaultProfile profile =
-                DefaultProfile.getProfile("default", "你的id", "你的secret");
+                DefaultProfile.getProfile("default", "LTAI5t9Ct4kWsp9nuwrNbofx", "Un3jdGyQ0p0GfsXkEaQapac6J8A4b0");
         IAcsClient client = new DefaultAcsClient(profile);
         //设置相关参数
         CommonRequest request = new CommonRequest();
@@ -34,8 +34,8 @@ public class MsmServiceImpl implements MsmService {
         request.setAction("SendSms");
         //"PhoneNumbers"固定名字
         request.putQueryParameter("PhoneNumbers",phone);
-        request.putQueryParameter("SignName", "你的签名名字");//签名名
-        request.putQueryParameter("TemplateCode", "模板编号");//模板编号
+        request.putQueryParameter("SignName", "阿里云短信测试");//签名名
+        request.putQueryParameter("TemplateCode", "SMS_154950909");//模板编号
         request.putQueryParameter("TemplateParam", JSONObject.toJSONString(param));
         try {
             //最终发送
